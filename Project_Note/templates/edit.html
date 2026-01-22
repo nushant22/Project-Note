@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>✏️ Edit Note</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2.5em;
+        }
+        
+        .info {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: 600;
+        }
+        
+        .btn-save {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-save:hover {
+            background: #5568d3;
+        }
+        
+        .btn-cancel {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .btn-cancel:hover {
+            background: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✏️ Edit Note</h1>
+        
+        <div class="info">
+            Created: {{ note.created_at.strftime('%Y-%m-%d %H:%M:%S') }}
+            | Last modified: {{ note.updated_at.strftime('%Y-%m-%d %H:%M:%S') }}
+        </div>
+        
+        <form method="post" action="/notes/update/{{ note.id }}">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" value="{{ note.title }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category">
+                    <option value="General" {% if note.category == 'General' %}selected{% endif %}>General</option>
+                    <option value="Work" {% if note.category == 'Work' %}selected{% endif %}>Work</option>
+                    <option value="Personal" {% if note.category == 'Personal' %}selected{% endif %}>Personal</option>
+                    <option value="Ideas" {% if note.category == 'Ideas' %}selected{% endif %}>Ideas</option>
+                    <option value="Todo" {% if note.category == 'Todo' %}selected{% endif %}>Todo</option>
+                    {% for cat in categories %}
+                        <option value="{{ cat }}" {% if note.category == cat %}selected{% endif %}>{{ cat }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea id="content" name="content" required>{{ note.content }}</textarea>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn-save">💾 Save Changes</button>
+                <a href="/notes/" style="flex: 1; text-decoration: none;">
+                    <button type="button" class="btn-cancel">❌ Cancel</button>
+                </a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

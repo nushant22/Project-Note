@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>📝 Notes App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2.5em;
+        }
+        
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+        
+        .search-bar input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .search-bar button {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background: #5568d3;
+        }
+        
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .category-tag {
+            display: inline-block;
+            padding: 6px 15px;
+            background: #f0f0f0;
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .category-tag:hover,
+        .category-tag.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .clear-filter {
+            background: #ff6b6b !important;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .add-note-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .add-note-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+        
+        button:hover {
+            background: #5568d3;
+        }
+        
+        .notes-list {
+            margin-top: 30px;
+            border-top: 2px solid #e0e0e0;
+            padding-top: 30px;
+        }
+        
+        .notes-list h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .note-item {
+            background: #f5f5f5;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.2s;
+        }
+        
+        .note-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+        
+        .note-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .note-category {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+        }
+        
+        .note-timestamp {
+            font-size: 0.85em;
+            color: #999;
+            margin-bottom: 10px;
+        }
+        
+        .note-content {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            max-height: 100px;
+            overflow: hidden;
+        }
+        
+        .note-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .note-actions a {
+            text-decoration: none;
+        }
+        
+        .edit-btn,
+        .delete-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+            width: auto;
+            color: white;
+            display: inline-block;
+        }
+        
+        .edit-btn {
+            background: #4ecdc4;
+        }
+        
+        .edit-btn:hover {
+            background: #3cb5ac;
+        }
+        
+        .delete-btn {
+            background: #ff6b6b;
+        }
+        
+        .delete-btn:hover {
+            background: #ff5252;
+        }
+        
+        .no-notes {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 My Notes</h1>
+        
+        <div class="search-bar">
+            <form method="get" style="display: flex; width: 100%; gap: 10px;">
+                <input type="text" name="search" placeholder="🔍 Search notes..." value="{{ search or '' }}">
+                <button type="submit">Search</button>
+                {% if search %}
+                    <a href="/notes/" style="text-decoration: none;">
+                        <button type="button" style="background: #ff6b6b; width: auto;">Clear</button>
+                    </a>
+                {% endif %}
+            </form>
+        </div>
+        
+        {% if categories %}
+            <div class="categories">
+                {% for cat in categories %}
+                    <a href="/notes/?category={{ cat }}" class="category-tag {% if selected_category == cat %}active{% endif %}">
+                        {{ cat }}
+                    </a>
+                {% endfor %}
+                {% if selected_category %}
+                    <a href="/notes/" class="category-tag clear-filter">Clear Filter</a>
+                {% endif %}
+            </div>
+        {% endif %}
+        
+        <div class="add-note-section">
+            <h2>➕ Add New Note</h2>
+            <form method="post" action="/notes/add">
+                <div class="form-group">
+                    <input type="text" name="title" placeholder="Note Title..." required>
+                </div>
+                <div class="form-group">
+                    <textarea name="content" placeholder="Write your note here..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <select name="category">
+                        <option value="General">General</option>
+                        <option value="Work">Work</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Ideas">Ideas</option>
+                        <option value="Todo">Todo</option>
+                        {% for cat in categories %}
+                            <option value="{{ cat }}">{{ cat }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit">Create Note</button>
+            </form>
+        </div>
+        
+        <div class="notes-list">
+            <h2>Your Notes</h2>
+            {% if notes %}
+                {% for note in notes %}
+                    <div class="note-item">
+                        <div class="note-header">
+                            <div>
+                                <div class="note-title">{{ note.title }}</div>
+                                <span class="note-category">{{ note.category }}</span>
+                            </div>
+                        </div>
+                        <div class="note-timestamp">
+                            Created: {{ note.created_at.strftime('%Y-%m-%d %H:%M') }} 
+                            | Updated: {{ note.updated_at.strftime('%Y-%m-%d %H:%M') }}
+                        </div>
+                        <div class="note-content">{{ note.content }}</div>
+                        <div class="note-actions">
+                            <a href="/notes/edit/{{ note.id }}">
+                                <button class="edit-btn">✏️ Edit</button>
+                            </a>
+                            <a href="/notes/delete/{{ note.id }}" onclick="return confirm('Delete this note?');">
+                                <button class="delete-btn">🗑️ Delete</button>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-notes">
+                    {% if search %}
+                        No notes found matching "{{ search }}"
+                    {% elif selected_category %}
+                        No notes in "{{ selected_category }}" category
+                    {% else %}
+                        No notes yet. Create one above!
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
