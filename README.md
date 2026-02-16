@@ -1,6 +1,6 @@
 # 📝 QuickNote-App - Task Management Application
 
-A clean, responsive web-based note-taking and task management application built with vanilla HTML, CSS, and JavaScript.
+A clean, responsive web-based note-taking and task management application built with vanilla HTML, CSS, JavaScript in the frontend, FastAPI used as backend framework and MySQL as database.
 
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -18,11 +18,7 @@ A modern, full-stack note management application built with **FastAPI** and **My
 - 📖 **View All Notes** - Display all notes in a clean card-based layout
 - ✏️ **Edit Notes** - Update note content, title, and category
 - 🗑️ **Delete Notes** - Remove notes permanently
-- 🔍 **Search Functionality** - Search notes by title or content
-- 🏷️ **Categorization** - Organize notes by categories
-- ⏰ **Timestamps** - Automatic creation and modification timestamps
 - 🌐 **REST API** - Full-featured API endpoints for programmatic access
-- 📱 **Responsive UI** - Modern, gradient-styled web interface
 
 
 ## 🛠️ Technologies Used
@@ -102,32 +98,25 @@ The application will be available at: **http://127.0.0.1:8000**
 
 ```
 QuickNote-App/
-├── QuickNote-App/
+Project_Note/
+├── database/
 │   ├── __init__.py
-│   ├── main.py                 # FastAPI application entry point
-│   ├── config/
-│   │   ├── __init__.py
-│   │   └── db.py              # Database configuration (legacy)
-│   ├── database/
-│   │   ├── __init__.py
-│   │   ├── db.py              # Database connection and session setup
-│   │   └── models.py          # SQLAlchemy ORM models
-│   ├── models/
-│   │   ├── __init__.py
-│   │   └── note.py            # Note data models
-│   ├── routes/
-│   │   ├── __init__.py
-│   │   └── note.py            # API and web routes
-│   ├── schemas/
-│   │   ├── __init__.py
-│   │   └── note.py            # Pydantic schemas for validation
-│   └── templates/
-│       ├── index.html         # Main notes display page
-│       └── edit.html          # Edit note page
-├── requirements.txt           # Python dependencies
-├── .env                       # Environment variables (not in repo)
-├── .gitignore                # Git ignore rules
-└── README.md                 # This file
+│   ├── db.py
+│   └── models.py
+├── routes/
+│   ├── __init__.py
+│   └── note.py
+├── schemas/
+│   ├── __init__.py
+│   └── note.py
+├── templates/
+│   ├── edit.html
+│   └── index.html
+├── __init__.py
+├── main.py
+├── README.md
+└── requirements.txt
+
 ```
 
 ## Usage
@@ -145,14 +134,6 @@ QuickNote-App/
 #### View Notes
 - All notes are displayed as cards on the main page
 - Each card shows: Title, Content Preview, Category, Creation Date, and Actions
-
-#### Search Notes
-- Use the search bar at the top to find notes by title or content
-- Results update in real-time
-
-#### Filter by Category
-- Select a category from the dropdown to filter notes
-- Select "All Categories" to view all notes
 
 #### Edit a Note
 1. Click the **"Edit"** button on any note card
@@ -178,14 +159,6 @@ QuickNote-App/
 #### View Notes
 - All notes are displayed as cards on the main page
 - Each card shows: Title, Content Preview, Category, Creation Date, and Actions
-
-#### Search Notes
-- Use the search bar at the top to find notes by title or content
-- Results update in real-time
-
-#### Filter by Category
-- Select a category from the dropdown to filter notes
-- Select "All Categories" to view all notes
 
 #### Edit a Note
 1. Click the **"Edit"** button on any note card
@@ -318,20 +291,6 @@ The `--reload` flag enables auto-restart on file changes.
 ### Running in Production Mode
 ```bash
 python -m uvicorn QuickNote_App.main:app --host 0.0.0.0 --port 8000 --workers 4
-```
-
-### Testing the API
-Use tools like:
-- **Postman** - GUI API client
-- **curl** - Command-line HTTP client
-- **Python requests** - Programmatic testing
-
-Example with curl:
-```bash
-curl -X GET http://127.0.0.1:8000/notes/api/all
-curl -X POST http://127.0.0.1:8000/notes/api/create \
-  -H "Content-Type: application/json" \
-  -d '{"title":"Test","content":"Test content","category":"Test"}'
 ```
 
 ## Future Enhancements
