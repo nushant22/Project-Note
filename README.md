@@ -1,8 +1,17 @@
-# Project Note - Note Management System
+# 📝 QuickNote-App - Task Management Application
+
+A clean, responsive web-based note-taking and task management application built with vanilla HTML, CSS, and JavaScript.
+
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
+## 🎯 About
 
 A modern, full-stack note management application built with **FastAPI** and **MySQL**, featuring a responsive web interface for creating, reading, updating, and deleting notes with advanced search and categorization capabilities.
 
-## Features
+
+## ✨ Features
 
 ✨ **Core Features:**
 - 📝 **Create Notes** - Add new notes with title, content, and category
@@ -15,7 +24,8 @@ A modern, full-stack note management application built with **FastAPI** and **My
 - 🌐 **REST API** - Full-featured API endpoints for programmatic access
 - 📱 **Responsive UI** - Modern, gradient-styled web interface
 
-## Tech Stack
+
+## 🛠️ Technologies Used
 
 ### Backend
 - **Framework:** FastAPI (Python web framework)
@@ -33,11 +43,66 @@ A modern, full-stack note management application built with **FastAPI** and **My
 ### Python Version
 - Python 3.14+
 
-## Project Structure
+## 🚀 Getting Started
+
+### Prerequisites
+- A modern web browser (Chrome, Firefox, Safari, Edge)
+- Basic understanding of HTML/CSS/JS (for modifications)
+
+## Installation
+
+### Prerequisites
+- Python 3.14+
+- MySQL 8.0+ (running and accessible)
+- pip (Python package manager)
+
+### Step 1: Clone the Repository
+```bash
+git clone https://github.com/nushant22/QuickNote-App.git
+cd QuickNote-App
+```
+
+### Step 2: Create Virtual Environment
+```bash
+python -m venv .venv
+
+# On Windows
+.venv\Scripts\activate
+
+# On macOS/Linux
+source .venv/bin/activate
+```
+
+### Step 3: Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### Step 4: Configure Environment Variables
+Create a `.env` file in the project root with the following variables:
+
+```env
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=your_password_here
+DB_NAME=QuickNote_App
+```
+
+**Note:** Make sure MySQL is running and the database `QuickNote_App` exists.
+
+### Step 5: Run the Application
+```bash
+python -m uvicorn QuickNote_App.main:app --reload
+```
+
+The application will be available at: **http://127.0.0.1:8000**
+
+## 📂 Project Structure
 
 ```
-Project-Note/
-├── Project_Note/
+QuickNote-App/
+├── QuickNote-App/
 │   ├── __init__.py
 │   ├── main.py                 # FastAPI application entry point
 │   ├── config/
@@ -65,54 +130,38 @@ Project-Note/
 └── README.md                 # This file
 ```
 
-## Installation
+## Usage
 
-### Prerequisites
-- Python 3.14+
-- MySQL 8.0+ (running and accessible)
-- pip (Python package manager)
+### Web Interface
 
-### Step 1: Clone the Repository
-```bash
-git clone https://github.com/nushant22/Project-Note.git
-cd Project-Note
-```
+#### Create a Note
+1. Navigate to http://127.0.0.1:8000/notes/
+2. Fill in the form with:
+   - **Title:** Note title
+   - **Content:** Note content
+   - **Category:** Select or type a category
+3. Click **"Add Note"**
 
-### Step 2: Create Virtual Environment
-```bash
-python -m venv .venv
+#### View Notes
+- All notes are displayed as cards on the main page
+- Each card shows: Title, Content Preview, Category, Creation Date, and Actions
 
-# On Windows
-.venv\Scripts\activate
+#### Search Notes
+- Use the search bar at the top to find notes by title or content
+- Results update in real-time
 
-# On macOS/Linux
-source .venv/bin/activate
-```
+#### Filter by Category
+- Select a category from the dropdown to filter notes
+- Select "All Categories" to view all notes
 
-### Step 3: Install Dependencies
-```bash
-pip install -r requirements.txt
-```
+#### Edit a Note
+1. Click the **"Edit"** button on any note card
+2. Update the note details
+3. Click **"Update Note"**
 
-### Step 4: Configure Environment Variables
-Create a `.env` file in the project root with the following variables:
-
-```env
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=your_password_here
-DB_NAME=project_note
-```
-
-**Note:** Make sure MySQL is running and the database `project_note` exists.
-
-### Step 5: Run the Application
-```bash
-python -m uvicorn Project_Note.main:app --reload
-```
-
-The application will be available at: **http://127.0.0.1:8000**
+#### Delete a Note
+- Click the **"Delete"** button on any note card
+- The note will be permanently removed
 
 ## Usage
 
@@ -262,13 +311,13 @@ The application includes comprehensive error handling:
 
 ### Running in Development Mode
 ```bash
-python -m uvicorn Project_Note.main:app --reload
+python -m uvicorn QuickNote_App.main:app --reload
 ```
 The `--reload` flag enables auto-restart on file changes.
 
 ### Running in Production Mode
 ```bash
-python -m uvicorn Project_Note.main:app --host 0.0.0.0 --port 8000 --workers 4
+python -m uvicorn QuickNote_App.main:app --host 0.0.0.0 --port 8000 --workers 4
 ```
 
 ### Testing the API
@@ -306,7 +355,7 @@ curl -X POST http://127.0.0.1:8000/notes/api/create \
 
 ### Port Already in Use
 **Problem:** `Address already in use`
-- **Solution:** Change the port: `python -m uvicorn Project_Note.main:app --port 8001`
+- **Solution:** Change the port: `python -m uvicorn QuickNote_App.main:app --port 8001`
 
 ### Import Errors
 **Problem:** `ModuleNotFoundError`
@@ -316,24 +365,28 @@ curl -X POST http://127.0.0.1:8000/notes/api/create \
 **Problem:** Cross-origin requests fail
 - **Solution:** Configure CORS in `main.py` if needed
 
-## License
+## 📝 License
 
-This project is open source and available for personal and educational use.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Author
+## 🙏 Acknowledgments
 
-Created by **nushant22** (Nushant Ghimire)
+- Design inspiration from [Google Keep](https://keep.google.com/)
+- Icons from [FontAwesome](https://fontawesome.com/)
+- Color palette from [Coolors](https://coolors.co/)
 
-## Support
+## 📧 Contact
 
-For issues, questions, or suggestions, please open an issue on the GitHub repository:
-https://github.com/nushant22/Project-Note/issues
+**Nushant Ghimire**
 
-## Contributors
-
-Contributions are welcome! Feel free to fork the repository and submit pull requests.
+- LinkedIn: [nushant-ghimire-861b87325](https://www.linkedin.com/in/nushant-ghimire-861b87325/)
+- GitHub: [@nushant22](https://github.com/nushant22)
+- Email: [nushantghimire22@gmail.com]
 
 ---
 
-**Last Updated:** January 22, 2026  
-**Version:** 1.0.0
+⭐ **If you find this project useful, please give it a star!**
+
+💡 **Have suggestions?** [Open an issue](https://github.com/nushant22/QuickNote-App/issues)
+
+*Last Updated: February 2026*
